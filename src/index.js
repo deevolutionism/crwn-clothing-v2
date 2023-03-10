@@ -6,7 +6,7 @@ import Home from './routes/home'
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from 'react-router-dom';
 import ErrorPage from './ErrorPage';
-import SignIn from './components/sign-in'
+import Authentication from './components/authentication'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
@@ -15,7 +15,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={ErrorPage}>
       <Route index element={<Home />} errorElement={ErrorPage}/>
-      <Route path="/sign-in" element={<SignIn />} />
+      <Route path="/auth" element={<Authentication />} />
     </Route>
   ),
 )
