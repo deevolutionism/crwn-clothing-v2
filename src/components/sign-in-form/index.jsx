@@ -2,7 +2,7 @@ import {useState} from 'react'
 import Button from '../button'
 import FormInput from '../form-input'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import {auth, createUserDocFromAuth, signInWithGooglePopup} from '../../utils/firebase'
+import {auth, signInWithGooglePopup} from '../../utils/firebase'
 import './styles.scss'
 
 const defaultFields = {
@@ -21,15 +21,17 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     const {user} = await signInWithGooglePopup()
+  }
 
-    const userDocRef = await createUserDocFromAuth(user)
+  const resetForm = () => {
+    setFormInput(defaultFields)
   }
   
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
       const response = await signInWithEmailAndPassword(auth, email, password)
-      console.log(response)
+      resetForm()
     } catch (e) {
       switch(e.code) {
         case 'auth/wrong-password':
