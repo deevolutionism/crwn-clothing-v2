@@ -11,6 +11,7 @@ import { UserProvider } from './context/user';
 import { ProductProvider } from './context/product'
 import Shop from './routes/shop'
 import { CartProvider } from './context/cart';
+import Checkout from './routes/checkout'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
@@ -21,6 +22,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} errorElement={ErrorPage}/>
       <Route path="/auth" element={<Authentication />} />
       <Route path="/shop" element={<Shop />} />
+      <Route path="/checkout" element={<Checkout />} />
     </Route>
   ),
 )
