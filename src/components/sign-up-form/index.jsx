@@ -34,7 +34,7 @@ const SignUpForm = () => {
     // confirm passwords mathc
     // create authenticated user
     // create user document
-    if(confirmPassword !== password) return console.log('password mismatch');
+    if(confirmPassword !== password) return alert('password mismatch');
     
     try {
       const {user} = await createAuthUserWithEmailAndPassword(email, password)
@@ -44,7 +44,7 @@ const SignUpForm = () => {
       if(e.code === 'auth/email-already-in-use') {
         alert('email already in use!')
       }
-      console.log('error encountered creating user', e)
+      console.error('error encountered creating user', e)
     }
   }
   

@@ -8,7 +8,7 @@ import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } 
 import ErrorPage from './ErrorPage';
 import Authentication from './components/authentication'
 import { UserProvider } from './context/user';
-import { ProductProvider } from './context/product'
+import { CategoriesProvider } from './context/categories'
 import Shop from './routes/shop'
 import { CartProvider } from './context/cart';
 import Checkout from './routes/checkout'
@@ -20,9 +20,9 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={ErrorPage}>
       <Route index element={<Home />} errorElement={ErrorPage}/>
-      <Route path="/auth" element={<Authentication />} />
-      <Route path="/shop" element={<Shop />} />
-      <Route path="/checkout" element={<Checkout />} />
+      <Route path="auth" element={<Authentication />} />
+      <Route path="shop/*" element={<Shop />} />
+      <Route path="checkout" element={<Checkout />} />
     </Route>
   ),
 )
@@ -30,11 +30,11 @@ const router = createBrowserRouter(
 root.render(
   <React.StrictMode>
     <UserProvider>
-      <ProductProvider>
+      <CategoriesProvider>
         <CartProvider>
           <RouterProvider router={router}></RouterProvider>
         </CartProvider>
-      </ProductProvider>
+      </CategoriesProvider>
     </UserProvider>
   </React.StrictMode>
 );

@@ -3,6 +3,7 @@ import Button from '../button'
 import FormInput from '../form-input'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import {auth, signInWithGooglePopup} from '../../utils/firebase'
+import { BUTTON_TYPE_CLASSES } from '../button'
 import './styles.scss'
 
 const defaultFields = {
@@ -41,7 +42,7 @@ const SignInForm = () => {
           alert('no user associated with email')
           break;
         default:
-          console.log(e)
+          console.error(e)
       }
     }
   }
@@ -69,7 +70,7 @@ const SignInForm = () => {
         />
         <div className="buttons-container">
           <Button type="submit">Sign In</Button>
-          <Button type="button" buttonType='google' onClick={signInWithGoogle}>Google Sign In</Button>
+          <Button type="button" buttonType={BUTTON_TYPE_CLASSES.google} onClick={signInWithGoogle}>Google Sign In</Button>
         </div>
       </form>
     </div>
