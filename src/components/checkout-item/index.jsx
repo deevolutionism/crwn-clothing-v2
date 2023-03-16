@@ -5,18 +5,18 @@ import { CartContext } from '../../context/cart'
 
 const CheckoutItem = ({product}) => {
   const {name, quantity, price, imageUrl, id} = product
-  const { adjustQuantity, removeById } = useContext(CartContext)
+  const { adjustItemQuantity, removeItemById } = useContext(CartContext)
 
   const incrementQuantity = () => {
-    adjustQuantity({id, quantity: quantity + 1})
+    adjustItemQuantity({id, quantity: quantity + 1})
   }
 
   const decrementQuantity = () => {
-    adjustQuantity({id, quantity: quantity - 1})
+    adjustItemQuantity({id, quantity: quantity - 1})
   }
 
   const removeItem = () => {
-    removeById(id)
+    removeItemById(id)
   }
 
   return (
@@ -31,7 +31,7 @@ const CheckoutItem = ({product}) => {
         <div className='arrow' onClick={incrementQuantity}>&#10095;</div>
       </span>
       <span>{price * quantity}</span>
-      <Button className='remove-button' onClick={removeItem}>&#10006;</Button>
+      <span className='remove-button' onClick={removeItem}>&#10006;</span>
       <hr></hr>
     </div>
   )

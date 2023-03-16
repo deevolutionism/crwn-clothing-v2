@@ -3,10 +3,12 @@ import { useContext } from 'react'
 import { CartContext } from '../../context/cart'
 
 const CartIcon = () => {
-  const {isCartOpen, setCartOpen, itemCount} = useContext(CartContext)
+  const {isCartOpen, itemCount, toggleCartDropdown} = useContext(CartContext)
   
   const toggleDropdown = () => {
-    setCartOpen(!isCartOpen)
+    // setCartOpen(!isCartOpen)
+    console.log('iscartopen', toggleCartDropdown)
+    toggleCartDropdown(!isCartOpen)
   }
 
   return (
