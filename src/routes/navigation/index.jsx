@@ -6,14 +6,15 @@ import {
   NavLink
 } from './style.jsx'
 import { ReactComponent as CrwnLogo } from '../../assets/crown.svg' 
-import { UserContext } from '../../context/user'
 import { signOutUser } from '../../utils/firebase'
 import CartIcon from '../../components/cart-icon'
 import CartDropdown from '../../components/cart-dropdown'
 import { CartContext } from '../../context/cart'
+import { useSelector } from 'react-redux'
+import { userSelector } from '../../store/user/index.js'
 
 const Navigation = () => {
-  const { user } = useContext(UserContext)
+  const user = useSelector(userSelector)
   const { isCartOpen } = useContext(CartContext)
   return (
     <Fragment>

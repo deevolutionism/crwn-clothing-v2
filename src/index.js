@@ -7,11 +7,11 @@ import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } from 'react-router-dom';
 import ErrorPage from './ErrorPage';
 import Authentication from './components/authentication'
-import { UserProvider } from './context/user';
-import { CategoriesProvider } from './context/categories'
 import Shop from './routes/shop'
 import { CartProvider } from './context/cart';
 import Checkout from './routes/checkout'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
@@ -29,13 +29,15 @@ const router = createBrowserRouter(
 
 root.render(
   <React.StrictMode>
-    <UserProvider>
-      <CategoriesProvider>
-        <CartProvider>
-          <RouterProvider router={router}></RouterProvider>
-        </CartProvider>
-      </CategoriesProvider>
-    </UserProvider>
+    <Provider store={store}>
+      {/* <UserProvider> */}
+        {/* <CategoriesProvider> */}
+          <CartProvider>
+            <RouterProvider router={router}></RouterProvider>
+          </CartProvider>
+        {/* </CategoriesProvider> */}
+      {/* </UserProvider> */}
+    </Provider>
   </React.StrictMode>
 );
 
