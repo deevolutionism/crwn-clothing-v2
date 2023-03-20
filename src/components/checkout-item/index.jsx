@@ -1,22 +1,26 @@
 import './styles.scss'
-import Button from '../button'
-import { useContext } from 'react'
-import { CartContext } from '../../context/cart'
+import { removeItemFromCart, adjustItemQuantity } from '../../store/cart'
+import { useDispatch } from 'react-redux'
 
 const CheckoutItem = ({product}) => {
   const {name, quantity, price, imageUrl, id} = product
-  const { adjustItemQuantity, removeItemById } = useContext(CartContext)
+  const dispatch = useDispatch()
+
 
   const incrementQuantity = () => {
-    adjustItemQuantity({id, quantity: quantity + 1})
+    dispatch(adjustItemQuantity({id, quantity: quantity + 1}))
   }
 
   const decrementQuantity = () => {
-    adjustItemQuantity({id, quantity: quantity - 1})
+    if(quantity - 1 <= 0) {
+      dispatch(removeItemFromCart({id}))
+      return
+    }
+    dispatch(adjustItemQuantity({id, quantity: quantity - 1}))
   }
 
   const removeItem = () => {
-    removeItemById(id)
+    dispatch(removeItemFromCart({id}))
   }
 
   return (

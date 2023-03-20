@@ -1,6 +1,82 @@
-import { createContext, useReducer } from 'react'
-import { createAction } from '../utils/reducer'
+import { createReducer, createAction, createSelector } from "@reduxjs/toolkit";
 
+/**
+ * cartItem: {
+ *  quantity: 0,
+ *  
+ * }
+ */
+
+const INIT_STATE = {
+  isCartOpen: false,
+  cartItems: {}
+}
+
+export const toggleCartDropdown = createAction("cart/toggleCartDropdown")
+export const addItemToCart = createAction("cart/addItemToCart")
+export const removeItemFromCart = createAction("cart/removeItem")
+export const calcTotalPrice = createAction("cart/calcTotalPrice")
+export const calcItemCount = createAction("cart/calcItemCount")
+export const adjustItemQuantity = createAction("cart/adjustItemQuantity")
+
+export const cartReducer = createReducer(INIT_STATE, (builder) => {
+  builder
+    .addCase(toggleCartDropdown, (state, action) => {
+      state.isCartOpen = action.payload
+    })
+    .addCase(addItemToCart, (state, action) => {
+      console.log(action)
+      const quantity = action.payload.id in state.cartItems ? state.cartItems[action.payload.id].quantity + 1 : 1
+      state.cartItems[action.payload.id] = {
+        ...action.payload,
+        quantity: quantity
+      }
+    })
+    .addCase(calcTotalPrice, (state, action) => {
+      state.totalPrice = action.payload
+    })
+    .addCase(calcItemCount, (state, action) => {
+      state.itemCount = action.payload
+    })
+    .addCase(removeItemFromCart, (state, action) => {
+      console.log('remove item from cart', action)
+      delete state.cartItems[action.payload.id]
+    })
+    .addCase(adjustItemQuantity, (state, action) => {
+      state.cartItems[action.payload.id].quantity = action.payload.quantity
+    })
+})
+
+const selectCartReducer = state => state.cart
+
+export const isCartOpenSelector = createSelector(
+  [selectCartReducer],
+  ({isCartOpen}) => isCartOpen
+)
+
+export const cartItemsSelector = createSelector(
+  [selectCartReducer],
+  ({cartItems}) => cartItems
+)
+
+export const itemCountSelector = createSelector(
+  [selectCartReducer],
+  ({cartItems}) => Object.entries(cartItems).reduce( (acc, [_, item]) => {
+    return acc += item.quantity
+  }, 0)
+)
+
+export const totalPriceSelector = createSelector(
+  [selectCartReducer],
+  ({cartItems}) => {
+    console.log(cartItems)
+    return Object.entries(cartItems).reduce((acc, [_, item]) => acc += (item.price * item.quantity), 0)
+  }
+)
+
+// const addItemToCart = state => 
+
+/*
 export const CartContext = createContext({
   isCartOpen: false,
   setCartOpen: () => null,
@@ -11,16 +87,16 @@ export const CartContext = createContext({
   removeItemById: () => null
 })
 
-/*
- cartItem:
- {
-  id,
-  name,
-  price,
-  imageUrl,
-  quantity
- }
-*/
+
+// cartItem:
+// {
+//  id,
+//  name,
+//  price,
+//  imageUrl,
+//  quantity
+// }
+
 
 export const CART_TYPES = {
   TOGGLE_CART: 'TOGGLE_CART',
@@ -145,3 +221,5 @@ export const CartProvider = ({children}) => {
     </CartContext.Provider>
   )
 }
+
+*/

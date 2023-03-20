@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from './store/user'
 import { Outlet } from 'react-router-dom'
 import Navigation from './routes/navigation';
+// import SHOP_DATA from './shop-data';
 
 
 const App = () => {
@@ -19,6 +20,10 @@ const App = () => {
     })
     return unsubscribe
   }, [dispatch])
+
+  // useEffect(() => {
+  //   addCollectionAndDocuments('categories', SHOP_DATA)
+  // })
 
   return (
     <>

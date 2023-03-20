@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { selectCategories } from '../../store/categories'
 
 const CategoriesPreview = () => {
-  const categories = useSelector(selectCategories)
+  const {categories} = useSelector(selectCategories)
   return (
     <>
       {

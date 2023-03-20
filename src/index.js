@@ -8,10 +8,10 @@ import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route } 
 import ErrorPage from './ErrorPage';
 import Authentication from './components/authentication'
 import Shop from './routes/shop'
-import { CartProvider } from './context/cart';
 import Checkout from './routes/checkout'
 import { Provider } from 'react-redux'
-import { store } from './store'
+import { store, persistor } from './store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 const container = document.getElementById('root')
 const root = createRoot(container)
@@ -30,13 +30,9 @@ const router = createBrowserRouter(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <UserProvider> */}
-        {/* <CategoriesProvider> */}
-          <CartProvider>
-            <RouterProvider router={router}></RouterProvider>
-          </CartProvider>
-        {/* </CategoriesProvider> */}
-      {/* </UserProvider> */}
+      <PersistGate persistor={persistor}>
+        <RouterProvider router={router}></RouterProvider>
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );
